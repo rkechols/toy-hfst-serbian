@@ -25,8 +25,8 @@ out/serbian_ana.hfstol : out/serbian_ana.hfst
 out/ana.png : out/serbian_ana.hfst
 	hfst-fst2txt out/serbian_ana.hfst | python3 tools/att2dot.py | dot -T png -o out/ana.png
 
-out/lexicon.png : out/serbian_full.lexc
-	python3 tools/lexc2dot.py <out/serbian_full.lexc | dot -T png -o out/lexicon.png
+out/lexicon.png : out/serbian_full.lex
+	python3 tools/lexc2dot.py <out/serbian_full.lex | dot -T png -o out/lexicon.png
 
 .PHONY : clean
 clean :
