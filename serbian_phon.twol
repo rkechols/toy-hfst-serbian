@@ -1,0 +1,48 @@
+Alphabet
+
+    ! base alphabet
+    A B C Č Ć D Đ E F G H I J K L Lj M N Nj O P R S Š T U V Z Ž
+    a b c č ć d đ e f g h i j k l lj m n nj o p r s š t u v z ž
+
+    ! archiphonemes
+    %{oe%}:o
+    %{Lzero%}:0
+    %{g2z%}:g
+    %{h2s%}:h
+    %{k2c%}:k
+    %{ghkTriggerI%}:i
+    %{vocMasc%}:e
+
+; ! end Alphabet
+
+
+Sets
+
+    Soft = C Č Ć Đ J Lj Nj Š Ž
+           c č ć đ j lj nj š ž ;
+    
+    Vowel = A E I O U
+            a e i o u ;
+
+
+Rules
+
+"if o/e is preceeded by a soft consonant, its surface form is 'e' (default is 'o')"
+%{oe%}:e <=> :Soft _ ;
+
+"if l/zero is followed by a vowel, its surface form is 'l' (default is zero)"
+%{Lzero%}:l <=> _ :Vowel ;
+
+! g,h,k -> z,s,c when followed by 'i'
+"if g/z is followed by a trigger i, its surface form is 'z' (default is 'g')"
+%{g2z%}:z <=> _ %{ghkTriggerI%}: ;
+"if h/s is followed by a trigger i, its surface form is 's' (default is 'h')"
+%{h2s%}:s <=> _ %{ghkTriggerI%}: ;
+"if k/c is followed by a trigger i, its surface form is 'c' (default is 'k')"
+%{k2c%}:c <=> _ %{ghkTriggerI%}: ;
+
+! masculine singular vocative ending
+"if the last consonant is soft, the vocative ending is 'u' (default is 'e')"
+%{vocMasc%}:u <=> :Soft _ ;
+"if the last consonant is an 'h', the vocative ending is 'u' (default is 'e')"
+%{vocMasc%}:u <=> :h _ ;
